@@ -1,0 +1,54 @@
+@startuml spk-saw
+entity "Users" as u {
+  id : int <<PK>>
+  --
+  username : int
+  password : string(32)
+  email : string(32)
+  name : string(32)
+  level : enum['admin', 'member']
+  status : enum['active', 'inactive']
+}
+
+entity "Alternatives" as a {
+  id : int <<PK>>
+  --
+  alternative : string(32)
+}
+
+entity "Criterias" as c {
+  id : int <<PK>>
+  --
+  criteria : string(32)
+  type: enum['cost','benefit']
+  bobot : int(1)
+}
+
+entity "CriteriaVariabels" as cv {
+  id : int <<PK>>
+  id_criteria : int <<FK>>
+  --
+  variabel : string(32)
+  value : int (1)
+}
+
+entity "AlternativeCriterias" as ac {
+   id : int <<PK>>
+   id_alternative : int <<FK>>
+   id_criteria : int <<FK>>
+   id_criteria_variabel : int <<FK>>
+   --
+}
+
+entity "App" as app {
+  id : int <<PK>>
+  --
+  name : int
+}
+
+c |o..o{ cv
+a |o..o{ ac
+c |o..o{ ac
+cv|o..o{ ac
+
+@enduml
